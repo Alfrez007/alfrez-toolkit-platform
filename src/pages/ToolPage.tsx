@@ -1,11 +1,47 @@
 
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Calculator } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import BMICalculator from '@/components/tools/BMICalculator';
+import InvoiceGenerator from '@/components/tools/InvoiceGenerator';
 
 const ToolPage = () => {
   const { categoryId, toolId } = useParams();
+
+  const renderTool = () => {
+    if (categoryId === 'health') {
+      switch (toolId) {
+        case 'bmi-calculator':
+          return <BMICalculator />;
+        case 'calorie-tracker':
+        case 'diet-analyser':
+        case 'waist-hip-ratio':
+        case 'ideal-weight':
+        case 'water-intake':
+        case 'heart-rate-zone':
+        case 'biological-age':
+          return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
+        default:
+          return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
+      }
+    } else if (categoryId === 'business') {
+      switch (toolId) {
+        case 'invoice-generator':
+          return <InvoiceGenerator />;
+        case 'pi-generator':
+        case 'profit-margin':
+        case 'break-even':
+        case 'loan-emi':
+        case 'startup-name':
+          return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
+        default:
+          return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
+      }
+    }
+    
+    return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -33,54 +69,7 @@ const ToolPage = () => {
       {/* Tool Content */}
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <div className={`w-16 h-16 mx-auto rounded-xl ${categoryId === 'health' ? 'bg-gradient-to-br from-red-500 to-pink-500' : 'bg-gradient-to-br from-blue-500 to-indigo-500'} flex items-center justify-center mb-6`}>
-                <Calculator className="w-8 h-8 text-white" />
-              </div>
-              
-              <h1 className="text-4xl font-bold text-gray-900 mb-4 capitalize animate-fade-in">
-                {toolId?.replace(/-/g, ' ')}
-              </h1>
-              
-              <p className="text-xl text-gray-600 animate-fade-in">
-                This tool is currently under development. We're building amazing functionality for you!
-              </p>
-            </div>
-
-            {/* Placeholder Tool Interface */}
-            <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 animate-fade-in" style={{ animationDelay: '200ms' }}>
-              <div className="text-center py-16">
-                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mb-6">
-                  <Calculator className="w-12 h-12 text-gray-400" />
-                </div>
-                
-                <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-                  Tool Interface Coming Soon
-                </h3>
-                
-                <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                  We're working on creating an intuitive and powerful interface for this tool. 
-                  It will include advanced features and a beautiful design.
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link to={`/categories/${categoryId}`}>
-                    <Button variant="outline" className="flex items-center space-x-2">
-                      <ArrowLeft className="w-4 h-4" />
-                      <span>Back to {categoryId === 'health' ? 'Health Tools' : 'Business Tools'}</span>
-                    </Button>
-                  </Link>
-                  
-                  <Link to="/coming-soon">
-                    <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white">
-                      Get Notified When Ready
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+          {renderTool()}
         </div>
       </section>
 
@@ -101,5 +90,40 @@ const ToolPage = () => {
     </div>
   );
 };
+
+const PlaceholderTool = ({ toolName }: { toolName?: string }) => (
+  <div className="max-w-4xl mx-auto">
+    <div className="text-center mb-12">
+      <h1 className="text-4xl font-bold text-gray-900 mb-4 capitalize">
+        {toolName}
+      </h1>
+      <p className="text-xl text-gray-600">
+        This tool is currently under development. Coming soon!
+      </p>
+    </div>
+
+    <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100">
+      <div className="text-center py-16">
+        <div className="w-24 h-24 mx-auto bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mb-6">
+          <span className="text-4xl">🚧</span>
+        </div>
+        
+        <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+          Under Development
+        </h3>
+        
+        <p className="text-gray-600 mb-8 max-w-md mx-auto">
+          We're working on creating this amazing tool with powerful features and a beautiful interface.
+        </p>
+        
+        <Link to="/coming-soon">
+          <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white">
+            Get Notified When Ready
+          </Button>
+        </Link>
+      </div>
+    </div>
+  </div>
+);
 
 export default ToolPage;
