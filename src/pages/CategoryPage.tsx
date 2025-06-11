@@ -8,28 +8,28 @@ import { Badge } from '@/components/ui/badge';
 const toolsData = {
   health: [
     { id: 'bmi-calculator', name: 'BMI Calculator', description: 'Calculate your Body Mass Index', icon: Calculator },
-    { id: 'calorie-tracker', name: 'Calorie Tracker', description: 'Track your daily calorie intake', icon: Target },
-    { id: 'diet-analyser', name: 'Diet Analyser', description: 'Analyze your diet and nutrition', icon: Heart },
-    { id: 'waist-hip-ratio', name: 'Waist to Hip Ratio', description: 'Calculate your waist to hip ratio', icon: Activity },
-    { id: 'ideal-weight', name: 'Ideal Weight Calculator', description: 'Find your ideal body weight', icon: Users },
-    { id: 'water-intake', name: 'Water Intake Calculator', description: 'Calculate daily water requirements', icon: Droplets },
-    { id: 'heart-rate-zone', name: 'Heart Rate Zone Calculator', description: 'Find your target heart rate zones', icon: Activity },
-    { id: 'biological-age', name: 'Biological Age Calculator', description: 'Calculate your biological age', icon: Calculator }
+    { id: 'calorie-tracker', name: 'Calorie Tracker', description: 'Track your daily calorie intake', icon: Target, comingSoon: true },
+    { id: 'diet-analyser', name: 'Diet Analyser', description: 'Analyze your diet and nutrition', icon: Heart, comingSoon: true },
+    { id: 'waist-hip-ratio', name: 'Waist to Hip Ratio', description: 'Calculate your waist to hip ratio', icon: Activity, comingSoon: true },
+    { id: 'ideal-weight', name: 'Ideal Weight Calculator', description: 'Find your ideal body weight', icon: Users, comingSoon: true },
+    { id: 'water-intake', name: 'Water Intake Calculator', description: 'Calculate daily water requirements', icon: Droplets, comingSoon: true },
+    { id: 'heart-rate-zone', name: 'Heart Rate Zone Calculator', description: 'Find your target heart rate zones', icon: Activity, comingSoon: true },
+    { id: 'biological-age', name: 'Biological Age Calculator', description: 'Calculate your biological age', icon: Calculator, comingSoon: true }
   ],
   business: [
     { id: 'invoice-generator', name: 'Invoice Generator', description: 'Create professional invoices', icon: Receipt },
-    { id: 'pi-generator', name: 'Pi Generator', description: 'Generate digits of Pi', icon: Calculator },
-    { id: 'profit-margin', name: 'Profit Margin Calculator', description: 'Calculate profit margins', icon: PieChart },
-    { id: 'break-even', name: 'Break-even Calculator', description: 'Calculate break-even point', icon: TrendingUp },
-    { id: 'loan-emi', name: 'Business Loan EMI Calculator', description: 'Calculate loan EMI payments', icon: DollarSign },
-    { id: 'startup-name', name: 'Startup Name Generator', description: 'Generate creative startup names', icon: Lightbulb }
+    { id: 'pi-generator', name: 'Pi Generator', description: 'Generate digits of Pi', icon: Calculator, comingSoon: true },
+    { id: 'profit-margin', name: 'Profit Margin Calculator', description: 'Calculate profit margins', icon: PieChart, comingSoon: true },
+    { id: 'break-even', name: 'Break-even Calculator', description: 'Calculate break-even point', icon: TrendingUp, comingSoon: true },
+    { id: 'loan-emi', name: 'Business Loan EMI Calculator', description: 'Calculate loan EMI payments', icon: DollarSign, comingSoon: true },
+    { id: 'startup-name', name: 'Startup Name Generator', description: 'Generate creative startup names', icon: Lightbulb, comingSoon: true }
   ],
   image: [
     { id: 'image-resizer', name: 'Image Resizer', description: 'Resize images to any dimension', icon: Image, comingSoon: true },
     { id: 'background-remover', name: 'Background Remover', description: 'Remove backgrounds from images', icon: Scissors, comingSoon: true },
     { id: 'image-compressor', name: 'Image Compressor', description: 'Compress images without quality loss', icon: Zap, comingSoon: true },
-    { id: 'format-converter', name: 'Format Converter', description: 'Convert to WebP/JPEG/PNG', icon: FileCheck, comingSoon: true },
-    { id: 'color-extractor', name: 'Color Extractor', description: 'Extract colors from images', icon: Palette, comingSoon: true }
+    { id: 'format-converter', name: 'Convert to WebP/JPEG/PNG', description: 'Convert images to different formats', icon: FileCheck, comingSoon: true },
+    { id: 'color-extractor', name: 'Image Color Extractor', description: 'Extract colors from images', icon: Palette, comingSoon: true }
   ],
   document: [
     { id: 'pdf-to-word', name: 'PDF to Word', description: 'Convert PDF files to Word documents', icon: FileText, comingSoon: true },
@@ -76,9 +76,11 @@ const toolsData = {
   web: [
     { id: 'uptime-checker', name: 'Uptime Checker', description: 'Monitor website availability', icon: Globe, comingSoon: true },
     { id: 'meta-analyzer', name: 'Meta Tag Analyzer', description: 'Analyze website meta tags', icon: Search, comingSoon: true },
-    { id: 'screenshot-tool', name: 'Website Screenshot', description: 'Capture website screenshots', icon: Eye, comingSoon: true },
+    { id: 'screenshot-tool', name: 'Website Screenshot Tool', description: 'Capture website screenshots', icon: Eye, comingSoon: true },
     { id: 'responsive-checker', name: 'Responsive Checker', description: 'Test responsive design', icon: Globe, comingSoon: true },
-    { id: 'ssl-checker', name: 'SSL Checker', description: 'Verify SSL certificate status', icon: Shield, comingSoon: true }
+    { id: 'ssl-checker', name: 'SSL Checker', description: 'Verify SSL certificate status', icon: Shield, comingSoon: true },
+    { id: 'domain-tick-mark', name: 'Domain Tick Mark Generator', description: 'Generate DMARC records', icon: Shield, comingSoon: true },
+    { id: 'site-auditor', name: 'Site Auditor', description: 'Audit website performance', icon: Search, comingSoon: true }
   ],
   design: [
     { id: 'color-picker', name: 'Color Picker', description: 'Pick and generate color palettes', icon: Palette, comingSoon: true },
@@ -92,14 +94,18 @@ const toolsData = {
     { id: 'audio-to-text', name: 'Audio to Text', description: 'Transcribe audio to text', icon: Mic, comingSoon: true },
     { id: 'video-compressor', name: 'Video Compressor', description: 'Compress video files', icon: Zap, comingSoon: true },
     { id: 'audio-converter', name: 'Audio Converter', description: 'Convert between audio formats', icon: Music, comingSoon: true },
-    { id: 'video-to-gif', name: 'Video to GIF', description: 'Convert videos to GIF format', icon: Image, comingSoon: true }
+    { id: 'video-to-gif', name: 'Video to GIF', description: 'Convert videos to GIF format', icon: Image, comingSoon: true },
+    { id: 'auto-caption', name: 'Auto Caption Generator', description: 'Generate video captions automatically', icon: Mic, comingSoon: true },
+    { id: 'ai-ugc-creator', name: 'AI UGC Creator', description: 'Create user-generated content with AI', icon: Bot, comingSoon: true },
+    { id: 'audio-cleaner', name: 'Audio Cleaner/Denoise', description: 'Clean and denoise audio files', icon: Music, comingSoon: true }
   ],
   financial: [
     { id: 'tax-calculator', name: 'Tax Calculator', description: 'Calculate tax obligations', icon: CreditCard, comingSoon: true },
     { id: 'budget-planner', name: 'Budget Planner', description: 'Plan and track your budget', icon: DollarSign, comingSoon: true },
     { id: 'emi-calculator', name: 'EMI Calculator', description: 'Calculate loan EMI amounts', icon: Calculator, comingSoon: true },
     { id: 'sip-calculator', name: 'SIP Calculator', description: 'Calculate SIP returns', icon: TrendingUp, comingSoon: true },
-    { id: 'currency-converter', name: 'Currency Converter', description: 'Convert between currencies', icon: DollarSign, comingSoon: true }
+    { id: 'currency-converter', name: 'Currency Converter', description: 'Convert between currencies', icon: DollarSign, comingSoon: true },
+    { id: 'compound-interest', name: 'Compound Interest Calculator', description: 'Calculate compound interest', icon: TrendingUp, comingSoon: true }
   ],
   system: [
     { id: 'ip-lookup', name: 'IP Lookup', description: 'Look up IP address information', icon: Search, comingSoon: true },
@@ -110,7 +116,7 @@ const toolsData = {
   ],
   legal: [
     { id: 'privacy-policy', name: 'Privacy Policy Generator', description: 'Generate privacy policies', icon: Scale, comingSoon: true },
-    { id: 'terms-conditions', name: 'Terms & Conditions', description: 'Generate terms and conditions', icon: FileText, comingSoon: true },
+    { id: 'terms-conditions', name: 'Terms & Conditions Generator', description: 'Generate terms and conditions', icon: FileText, comingSoon: true },
     { id: 'cookie-policy', name: 'Cookie Policy Generator', description: 'Generate cookie policies', icon: Shield, comingSoon: true },
     { id: 'nda-generator', name: 'NDA Generator', description: 'Generate non-disclosure agreements', icon: Scale, comingSoon: true },
     { id: 'disclaimer-generator', name: 'Disclaimer Generator', description: 'Generate legal disclaimers', icon: FileText, comingSoon: true }
@@ -169,7 +175,7 @@ const CategoryPage = () => {
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
                   A
                 </div>
-                <span className="text-xl font-bold text-gray-900">Alfrez Toolkit</span>
+                <span className="text-xl font-bold text-gray-900">Alfrez</span>
               </div>
             </div>
           </div>
@@ -198,7 +204,8 @@ const CategoryPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {tools.map((tool, index) => {
               const IconComponent = tool.icon;
-              const isAvailable = categoryId === 'health' || categoryId === 'business';
+              const isAvailable = (categoryId === 'health' && tool.id === 'bmi-calculator') || 
+                                (categoryId === 'business' && tool.id === 'invoice-generator');
               const linkTo = isAvailable ? `/categories/${categoryId}/${tool.id}` : '/coming-soon';
               
               return (
@@ -254,10 +261,10 @@ const CategoryPage = () => {
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
               A
             </div>
-            <span className="text-xl font-bold">Alfrez Toolkit</span>
+            <span className="text-xl font-bold">Alfrez</span>
           </div>
           <p className="text-gray-400">
-            &copy; 2024 Alfrez Toolkit. All rights reserved.
+            &copy; 2024 Alfrez. All rights reserved.
           </p>
         </div>
       </footer>

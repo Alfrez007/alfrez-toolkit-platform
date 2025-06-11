@@ -146,7 +146,7 @@ const Index = () => {
               <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
                 A
               </div>
-              <span className="text-xl font-bold text-gray-900">Alfrez Toolkit</span>
+              <span className="text-xl font-bold text-gray-900">Alfrez</span>
             </div>
             <nav className="hidden md:flex space-x-6">
               <Link to="/" className="text-gray-600 hover:text-gray-900 transition-colors">Home</Link>
@@ -250,7 +250,7 @@ const Index = () => {
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
                   A
                 </div>
-                <span className="text-xl font-bold">Alfrez Toolkit</span>
+                <span className="text-xl font-bold">Alfrez</span>
               </div>
               <p className="text-gray-400">
                 Your ultimate digital toolkit with 200+ powerful tools across 15 categories.
@@ -292,7 +292,7 @@ const Index = () => {
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Alfrez Toolkit. All rights reserved.</p>
+            <p>&copy; 2024 Alfrez. All rights reserved.</p>
           </div>
         </div>
       </footer>

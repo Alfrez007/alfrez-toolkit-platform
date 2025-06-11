@@ -14,14 +14,6 @@ const ToolPage = () => {
       switch (toolId) {
         case 'bmi-calculator':
           return <BMICalculator />;
-        case 'calorie-tracker':
-        case 'diet-analyser':
-        case 'waist-hip-ratio':
-        case 'ideal-weight':
-        case 'water-intake':
-        case 'heart-rate-zone':
-        case 'biological-age':
-          return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
         default:
           return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
       }
@@ -29,12 +21,6 @@ const ToolPage = () => {
       switch (toolId) {
         case 'invoice-generator':
           return <InvoiceGenerator />;
-        case 'pi-generator':
-        case 'profit-margin':
-        case 'break-even':
-        case 'loan-emi':
-        case 'startup-name':
-          return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
         default:
           return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
       }
@@ -59,7 +45,7 @@ const ToolPage = () => {
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
                   A
                 </div>
-                <span className="text-xl font-bold text-gray-900">Alfrez Toolkit</span>
+                <span className="text-xl font-bold text-gray-900">Alfrez</span>
               </div>
             </div>
           </div>
@@ -80,10 +66,10 @@ const ToolPage = () => {
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
               A
             </div>
-            <span className="text-xl font-bold">Alfrez Toolkit</span>
+            <span className="text-xl font-bold">Alfrez</span>
           </div>
           <p className="text-gray-400">
-            &copy; 2024 Alfrez Toolkit. All rights reserved.
+            &copy; 2024 Alfrez. All rights reserved.
           </p>
         </div>
       </footer>

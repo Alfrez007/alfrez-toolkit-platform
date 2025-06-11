@@ -4,7 +4,6 @@ import { Receipt, Download, Plus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
 
 interface InvoiceItem {
   id: string;
@@ -141,7 +140,7 @@ const InvoiceGenerator = () => {
                     <Input
                       type="number"
                       value={item.quantity}
-                      onChange={(e) => updateItem(item.id, 'quantity', parseFloat(e.target.value) || 0)}
+                      onChange={(e) => updateItem(item.id, 'quantity', Number(e.target.value) || 0)}
                       size="sm"
                     />
                   </div>
@@ -150,7 +149,7 @@ const InvoiceGenerator = () => {
                     <Input
                       type="number"
                       value={item.rate}
-                      onChange={(e) => updateItem(item.id, 'rate', parseFloat(e.target.value) || 0)}
+                      onChange={(e) => updateItem(item.id, 'rate', Number(e.target.value) || 0)}
                       size="sm"
                     />
                   </div>
