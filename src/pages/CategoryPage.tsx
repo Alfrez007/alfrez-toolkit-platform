@@ -203,9 +203,9 @@ const CategoryPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {tools.map((tool, index) => {
               const IconComponent = tool.icon;
-              const isAvailable = (categoryId === 'health') || 
-                                (categoryId === 'business' && tool.id === 'invoice-generator');
-              const linkTo = isAvailable ? `/categories/${categoryId}/${tool.id}` : '/coming-soon';
+              const isAvailable = (categoryId === 'health') || (categoryId === 'business');
+              const hasComingSoon = 'comingSoon' in tool && tool.comingSoon;
+              const linkTo = (isAvailable && !hasComingSoon) ? `/categories/${categoryId}/${tool.id}` : '/coming-soon';
               
               return (
                 <Link
@@ -215,7 +215,7 @@ const CategoryPage = () => {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 animate-fade-in relative">
-                    {tool.comingSoon && (
+                    {hasComingSoon && (
                       <div className="absolute top-3 right-3">
                         <Badge variant="secondary" className="bg-orange-100 text-orange-600 text-xs font-semibold">
                           🔒 Soon
@@ -239,7 +239,7 @@ const CategoryPage = () => {
                     
                     <div className="flex items-center text-blue-600 text-sm font-medium">
                       <span className="group-hover:translate-x-1 transition-transform duration-300">
-                        {isAvailable ? 'Open Tool' : 'Coming Soon'}
+                        {(isAvailable && !hasComingSoon) ? 'Open Tool' : 'Coming Soon'}
                       </span>
                       <div className="ml-2 group-hover:translate-x-1 transition-transform duration-300">
                         →

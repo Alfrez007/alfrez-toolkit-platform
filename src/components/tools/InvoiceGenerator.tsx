@@ -32,10 +32,11 @@ const InvoiceGenerator = () => {
   const updateItem = (index: number, field: keyof InvoiceItem, value: string | number) => {
     const newItems = [...items];
     if (field === 'quantity' || field === 'rate') {
-      newItems[index][field] = typeof value === 'string' ? parseFloat(value) || 0 : value;
+      const numValue = typeof value === 'string' ? parseFloat(value) || 0 : value;
+      newItems[index][field] = numValue;
       newItems[index].amount = newItems[index].quantity * newItems[index].rate;
     } else {
-      newItems[index][field] = value as any;
+      newItems[index][field] = value as string;
     }
     setItems(newItems);
   };
@@ -43,7 +44,6 @@ const InvoiceGenerator = () => {
   const totalAmount = items.reduce((sum, item) => sum + item.amount, 0);
 
   const generatePDF = () => {
-    // Simple print functionality
     window.print();
   };
 

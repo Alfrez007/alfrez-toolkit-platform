@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
@@ -11,6 +12,11 @@ import IdealWeight from '@/components/tools/IdealWeight';
 import WaterIntake from '@/components/tools/WaterIntake';
 import HeartRateZone from '@/components/tools/HeartRateZone';
 import BiologicalAge from '@/components/tools/BiologicalAge';
+import PiGenerator from '@/components/tools/PiGenerator';
+import ProfitMarginCalculator from '@/components/tools/ProfitMarginCalculator';
+import BreakEvenCalculator from '@/components/tools/BreakEvenCalculator';
+import BusinessLoanEMI from '@/components/tools/BusinessLoanEMI';
+import StartupNameGenerator from '@/components/tools/StartupNameGenerator';
 
 const ToolPage = () => {
   const { categoryId, toolId } = useParams();
@@ -41,6 +47,16 @@ const ToolPage = () => {
       switch (toolId) {
         case 'invoice-generator':
           return <InvoiceGenerator />;
+        case 'pi-generator':
+          return <PiGenerator />;
+        case 'profit-margin':
+          return <ProfitMarginCalculator />;
+        case 'break-even':
+          return <BreakEvenCalculator />;
+        case 'loan-emi':
+          return <BusinessLoanEMI />;
+        case 'startup-name':
+          return <StartupNameGenerator />;
         default:
           return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
       }
