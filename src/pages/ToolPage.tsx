@@ -1,10 +1,16 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import BMICalculator from '@/components/tools/BMICalculator';
 import InvoiceGenerator from '@/components/tools/InvoiceGenerator';
+import CalorieTracker from '@/components/tools/CalorieTracker';
+import DietAnalyser from '@/components/tools/DietAnalyser';
+import WaistHipRatio from '@/components/tools/WaistHipRatio';
+import IdealWeight from '@/components/tools/IdealWeight';
+import WaterIntake from '@/components/tools/WaterIntake';
+import HeartRateZone from '@/components/tools/HeartRateZone';
+import BiologicalAge from '@/components/tools/BiologicalAge';
 
 const ToolPage = () => {
   const { categoryId, toolId } = useParams();
@@ -14,6 +20,20 @@ const ToolPage = () => {
       switch (toolId) {
         case 'bmi-calculator':
           return <BMICalculator />;
+        case 'calorie-tracker':
+          return <CalorieTracker />;
+        case 'diet-analyser':
+          return <DietAnalyser />;
+        case 'waist-hip-ratio':
+          return <WaistHipRatio />;
+        case 'ideal-weight':
+          return <IdealWeight />;
+        case 'water-intake':
+          return <WaterIntake />;
+        case 'heart-rate-zone':
+          return <HeartRateZone />;
+        case 'biological-age':
+          return <BiologicalAge />;
         default:
           return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
       }

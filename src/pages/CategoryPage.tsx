@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Heart, Calculator, Target, Droplets, Activity, Users, Receipt, PieChart, TrendingUp, DollarSign, FileText, Lightbulb, Image, Code, Shield, BookOpen, Bot, Globe, Palette, Music, HardDrive, Scale, Clock, Zap, Eye, Scissors, Mic, CreditCard, Search, FileCheck } from 'lucide-react';
@@ -8,13 +7,13 @@ import { Badge } from '@/components/ui/badge';
 const toolsData = {
   health: [
     { id: 'bmi-calculator', name: 'BMI Calculator', description: 'Calculate your Body Mass Index', icon: Calculator },
-    { id: 'calorie-tracker', name: 'Calorie Tracker', description: 'Track your daily calorie intake', icon: Target, comingSoon: true },
-    { id: 'diet-analyser', name: 'Diet Analyser', description: 'Analyze your diet and nutrition', icon: Heart, comingSoon: true },
-    { id: 'waist-hip-ratio', name: 'Waist to Hip Ratio', description: 'Calculate your waist to hip ratio', icon: Activity, comingSoon: true },
-    { id: 'ideal-weight', name: 'Ideal Weight Calculator', description: 'Find your ideal body weight', icon: Users, comingSoon: true },
-    { id: 'water-intake', name: 'Water Intake Calculator', description: 'Calculate daily water requirements', icon: Droplets, comingSoon: true },
-    { id: 'heart-rate-zone', name: 'Heart Rate Zone Calculator', description: 'Find your target heart rate zones', icon: Activity, comingSoon: true },
-    { id: 'biological-age', name: 'Biological Age Calculator', description: 'Calculate your biological age', icon: Calculator, comingSoon: true }
+    { id: 'calorie-tracker', name: 'Calorie Tracker', description: 'Track your daily calorie intake', icon: Target },
+    { id: 'diet-analyser', name: 'Diet Analyser', description: 'Analyze your diet and nutrition', icon: Heart },
+    { id: 'waist-hip-ratio', name: 'Waist to Hip Ratio', description: 'Calculate your waist to hip ratio', icon: Activity },
+    { id: 'ideal-weight', name: 'Ideal Weight Calculator', description: 'Find your ideal body weight', icon: Users },
+    { id: 'water-intake', name: 'Water Intake Calculator', description: 'Calculate daily water requirements', icon: Droplets },
+    { id: 'heart-rate-zone', name: 'Heart Rate Zone Calculator', description: 'Find your target heart rate zones', icon: Activity },
+    { id: 'biological-age', name: 'Biological Age Calculator', description: 'Calculate your biological age', icon: Calculator }
   ],
   business: [
     { id: 'invoice-generator', name: 'Invoice Generator', description: 'Create professional invoices', icon: Receipt },
@@ -204,7 +203,7 @@ const CategoryPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {tools.map((tool, index) => {
               const IconComponent = tool.icon;
-              const isAvailable = (categoryId === 'health' && tool.id === 'bmi-calculator') || 
+              const isAvailable = (categoryId === 'health') || 
                                 (categoryId === 'business' && tool.id === 'invoice-generator');
               const linkTo = isAvailable ? `/categories/${categoryId}/${tool.id}` : '/coming-soon';
               
