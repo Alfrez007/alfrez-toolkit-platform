@@ -35,7 +35,7 @@ const InvoiceGenerator = () => {
       const numValue = typeof value === 'string' ? parseFloat(value) || 0 : value;
       newItems[index][field] = numValue;
       newItems[index].amount = newItems[index].quantity * newItems[index].rate;
-    } else {
+    } else if (field === 'description') {
       newItems[index][field] = value as string;
     }
     setItems(newItems);

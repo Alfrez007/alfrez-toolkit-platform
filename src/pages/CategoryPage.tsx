@@ -17,11 +17,11 @@ const toolsData = {
   ],
   business: [
     { id: 'invoice-generator', name: 'Invoice Generator', description: 'Create professional invoices', icon: Receipt },
-    { id: 'pi-generator', name: 'Pi Generator', description: 'Generate digits of Pi', icon: Calculator, comingSoon: true },
-    { id: 'profit-margin', name: 'Profit Margin Calculator', description: 'Calculate profit margins', icon: PieChart, comingSoon: true },
-    { id: 'break-even', name: 'Break-even Calculator', description: 'Calculate break-even point', icon: TrendingUp, comingSoon: true },
-    { id: 'loan-emi', name: 'Business Loan EMI Calculator', description: 'Calculate loan EMI payments', icon: DollarSign, comingSoon: true },
-    { id: 'startup-name', name: 'Startup Name Generator', description: 'Generate creative startup names', icon: Lightbulb, comingSoon: true }
+    { id: 'pi-generator', name: 'Pi Generator', description: 'Generate digits of Pi', icon: Calculator },
+    { id: 'profit-margin', name: 'Profit Margin Calculator', description: 'Calculate profit margins', icon: PieChart },
+    { id: 'break-even', name: 'Break-even Calculator', description: 'Calculate break-even point', icon: TrendingUp },
+    { id: 'loan-emi', name: 'Business Loan EMI Calculator', description: 'Calculate loan EMI payments', icon: DollarSign },
+    { id: 'startup-name', name: 'Startup Name Generator', description: 'Generate creative startup names', icon: Lightbulb }
   ],
   image: [
     { id: 'image-resizer', name: 'Image Resizer', description: 'Resize images to any dimension', icon: Image, comingSoon: true },
