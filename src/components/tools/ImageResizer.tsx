@@ -20,7 +20,7 @@ const ImageResizer = () => {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        const img = new Image();
+        const img = document.createElement('img');
         img.onload = () => {
           setOriginalDimensions({width: img.width, height: img.height});
           setWidth(img.width);
@@ -38,7 +38,7 @@ const ImageResizer = () => {
 
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const img = new Image();
+    const img = document.createElement('img');
 
     img.onload = () => {
       canvas.width = width;
@@ -189,6 +189,12 @@ const ImageResizer = () => {
                   <Download className="w-4 h-4 mr-2" />
                   Download Resized Image
                 </Button>
+              </div>
+            )}
+
+            {!originalImage && (
+              <div className="text-center py-8 text-gray-500">
+                Upload an image to get started
               </div>
             )}
           </div>

@@ -1,29 +1,21 @@
 
 import React, { useState, useRef } from 'react';
-import { Image, Upload, Download, RotateCcw } from 'lucide-react';
+import { FileImage, Upload, Download, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const FormatConverter = () => {
   const [originalImage, setOriginalImage] = useState<string>('');
   const [convertedImage, setConvertedImage] = useState<string>('');
-  const [selectedFormat, setSelectedFormat] = useState<string>('webp');
-  const [originalFormat, setOriginalFormat] = useState<string>('');
+  const [outputFormat, setOutputFormat] = useState<string>('jpeg');
+  const [quality, setQuality] = useState<number>(90);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const formats = [
-    { value: 'webp', label: 'WebP', mimeType: 'image/webp' },
-    { value: 'jpeg', label: 'JPEG', mimeType: 'image/jpeg' },
-    { value: 'png', label: 'PNG', mimeType: 'image/png' },
-  ];
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const format = file.type.split('/')[1];
-      setOriginalFormat(format);
-      
       const reader = new FileReader();
       reader.onload = (e) => {
         setOriginalImage(e.target?.result as string);
@@ -38,16 +30,18 @@ const FormatConverter = () => {
 
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const img = new Image();
+    const img = document.createElement('img');
 
     img.onload = () => {
       canvas.width = img.width;
       canvas.height = img.height;
       ctx?.drawImage(img, 0, 0);
       
-      const format = formats.find(f => f.value === selectedFormat);
-      const quality = selectedFormat === 'jpeg' ? 0.9 : 1.0;
-      const converted = canvas.toDataURL(format?.mimeType || 'image/webp', quality);
+      let mimeType = 'image/jpeg';
+      if (outputFormat === 'png') mimeType = 'image/png';
+      if (outputFormat === 'webp') mimeType = 'image/webp';
+      
+      const converted = canvas.toDataURL(mimeType, quality / 100);
       setConvertedImage(converted);
     };
     img.src = originalImage;
@@ -56,7 +50,7 @@ const FormatConverter = () => {
   const downloadImage = () => {
     if (!convertedImage) return;
     const link = document.createElement('a');
-    link.download = `converted-image.${selectedFormat}`;
+    link.download = `converted-image.${outputFormat}`;
     link.href = convertedImage;
     link.click();
   };
@@ -64,8 +58,8 @@ const FormatConverter = () => {
   const reset = () => {
     setOriginalImage('');
     setConvertedImage('');
-    setOriginalFormat('');
-    setSelectedFormat('webp');
+    setOutputFormat('jpeg');
+    setQuality(90);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -74,16 +68,16 @@ const FormatConverter = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-8">
-        <div className="w-16 h-16 mx-auto rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center mb-4">
-          <Image className="w-8 h-8 text-white" />
+        <div className="w-16 h-16 mx-auto rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mb-4">
+          <FileImage className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Format Converter</h1>
-        <p className="text-gray-600">Convert images between WebP, JPEG, and PNG formats</p>
+        <p className="text-gray-600">Convert images between JPEG, PNG, and WebP formats</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card className="p-6">
-          <h3 className="text-xl font-semibold mb-4">Upload & Convert</h3>
+          <h3 className="text-xl font-semibold mb-4">Upload & Configure</h3>
           
           <div className="space-y-4">
             <div>
@@ -100,27 +94,32 @@ const FormatConverter = () => {
             {originalImage && (
               <>
                 <div>
-                  <Label>Convert to Format</Label>
-                  <select
-                    value={selectedFormat}
-                    onChange={(e) => setSelectedFormat(e.target.value)}
-                    className="w-full mt-2 p-2 border border-gray-300 rounded-md"
-                  >
-                    {formats.map(format => (
-                      <option key={format.value} value={format.value}>
-                        {format.label}
-                      </option>
-                    ))}
-                  </select>
+                  <Label>Output Format</Label>
+                  <Select value={outputFormat} onValueChange={setOutputFormat}>
+                    <SelectTrigger className="mt-1">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="jpeg">JPEG</SelectItem>
+                      <SelectItem value="png">PNG</SelectItem>
+                      <SelectItem value="webp">WebP</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="font-medium mb-2">Conversion Info</h4>
-                  <div className="text-sm space-y-1">
-                    <div>From: {originalFormat.toUpperCase()}</div>
-                    <div>To: {selectedFormat.toUpperCase()}</div>
+                {outputFormat !== 'png' && (
+                  <div>
+                    <Label>Quality: {quality}%</Label>
+                    <input
+                      type="range"
+                      min="10"
+                      max="100"
+                      value={quality}
+                      onChange={(e) => setQuality(parseInt(e.target.value))}
+                      className="w-full mt-1"
+                    />
                   </div>
-                </div>
+                )}
 
                 <div className="flex space-x-2">
                   <Button onClick={convertImage} className="flex-1">
@@ -141,7 +140,7 @@ const FormatConverter = () => {
           <div className="space-y-4">
             {originalImage && (
               <div>
-                <h4 className="font-medium mb-2">Original ({originalFormat.toUpperCase()})</h4>
+                <h4 className="font-medium mb-2">Original</h4>
                 <img
                   src={originalImage}
                   alt="Original"
@@ -153,7 +152,7 @@ const FormatConverter = () => {
 
             {convertedImage && (
               <div>
-                <h4 className="font-medium mb-2">Converted ({selectedFormat.toUpperCase()})</h4>
+                <h4 className="font-medium mb-2">Converted ({outputFormat.toUpperCase()})</h4>
                 <img
                   src={convertedImage}
                   alt="Converted"
@@ -162,7 +161,7 @@ const FormatConverter = () => {
                 />
                 <Button onClick={downloadImage} className="w-full mt-2">
                   <Download className="w-4 h-4 mr-2" />
-                  Download {selectedFormat.toUpperCase()}
+                  Download Converted Image
                 </Button>
               </div>
             )}

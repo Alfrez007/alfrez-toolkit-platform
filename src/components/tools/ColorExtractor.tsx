@@ -1,6 +1,6 @@
 
 import React, { useState, useRef } from 'react';
-import { Image, Upload, Copy, RotateCcw } from 'lucide-react';
+import { Palette, Upload, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -13,8 +13,8 @@ interface Color {
 
 const ColorExtractor = () => {
   const [originalImage, setOriginalImage] = useState<string>('');
-  const [extractedColors, setExtractedColors] = useState<Color[]>([]);
-  const [isExtracting, setIsExtracting] = useState<boolean>(false);
+  const [colors, setColors] = useState<Color[]>([]);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +23,7 @@ const ColorExtractor = () => {
       const reader = new FileReader();
       reader.onload = (e) => {
         setOriginalImage(e.target?.result as string);
-        setExtractedColors([]);
+        setColors([]);
       };
       reader.readAsDataURL(file);
     }
@@ -32,62 +32,71 @@ const ColorExtractor = () => {
   const extractColors = () => {
     if (!originalImage) return;
     
-    setIsExtracting(true);
+    setIsProcessing(true);
     
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const img = new Image();
+    const img = document.createElement('img');
 
     img.onload = () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx?.drawImage(img, 0, 0);
+      // Resize image for faster processing
+      const maxSize = 100;
+      const ratio = Math.min(maxSize / img.width, maxSize / img.height);
+      canvas.width = img.width * ratio;
+      canvas.height = img.height * ratio;
+      
+      ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
       
       const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
-      if (!imageData) return;
+      const data = imageData?.data;
       
-      const colorMap = new Map<string, number>();
-      
-      // Sample every 10th pixel for performance
-      for (let i = 0; i < imageData.data.length; i += 40) {
-        const r = imageData.data[i];
-        const g = imageData.data[i + 1];
-        const b = imageData.data[i + 2];
+      if (data) {
+        const colorMap = new Map<string, number>();
         
-        // Skip transparent pixels
-        if (imageData.data[i + 3] < 128) continue;
+        // Sample every 4th pixel for performance
+        for (let i = 0; i < data.length; i += 16) {
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
+          const a = data[i + 3];
+          
+          if (a > 128) { // Only count non-transparent pixels
+            const hex = `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
+            colorMap.set(hex, (colorMap.get(hex) || 0) + 1);
+          }
+        }
         
-        const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-        const rgb = `rgb(${r}, ${g}, ${b})`;
+        // Convert to array and sort by frequency
+        const sortedColors = Array.from(colorMap.entries())
+          .map(([hex, count]) => {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return {
+              hex,
+              rgb: `rgb(${r}, ${g}, ${b})`,
+              count
+            };
+          })
+          .sort((a, b) => b.count - a.count)
+          .slice(0, 10); // Top 10 colors
         
-        const key = `${hex}|${rgb}`;
-        colorMap.set(key, (colorMap.get(key) || 0) + 1);
+        setColors(sortedColors);
       }
       
-      // Get top 12 colors
-      const sortedColors = Array.from(colorMap.entries())
-        .sort(([, a], [, b]) => b - a)
-        .slice(0, 12)
-        .map(([key, count]) => {
-          const [hex, rgb] = key.split('|');
-          return { hex, rgb, count };
-        });
-      
-      setExtractedColors(sortedColors);
-      setIsExtracting(false);
+      setIsProcessing(false);
     };
-    
     img.src = originalImage;
   };
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
+  const copyToClipboard = (color: string) => {
+    navigator.clipboard.writeText(color);
   };
 
   const reset = () => {
     setOriginalImage('');
-    setExtractedColors([]);
-    setIsExtracting(false);
+    setColors([]);
+    setIsProcessing(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -96,8 +105,8 @@ const ColorExtractor = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-8">
-        <div className="w-16 h-16 mx-auto rounded-xl bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center mb-4">
-          <Image className="w-8 h-8 text-white" />
+        <div className="w-16 h-16 mx-auto rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center mb-4">
+          <Palette className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Color Extractor</h1>
         <p className="text-gray-600">Extract dominant colors from your images</p>
@@ -135,9 +144,9 @@ const ColorExtractor = () => {
                   <Button 
                     onClick={extractColors} 
                     className="flex-1"
-                    disabled={isExtracting}
+                    disabled={isProcessing}
                   >
-                    {isExtracting ? 'Extracting...' : 'Extract Colors'}
+                    {isProcessing ? 'Extracting...' : 'Extract Colors'}
                   </Button>
                   <Button onClick={reset} variant="outline">
                     <RotateCcw className="w-4 h-4" />
@@ -152,51 +161,39 @@ const ColorExtractor = () => {
           <h3 className="text-xl font-semibold mb-4">Extracted Colors</h3>
           
           <div className="space-y-4">
-            {isExtracting && (
+            {isProcessing && (
               <div className="text-center py-8">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
                 <p className="text-gray-600">Extracting colors...</p>
               </div>
             )}
 
-            {extractedColors.length > 0 && !isExtracting && (
-              <div className="grid grid-cols-2 gap-3">
-                {extractedColors.map((color, index) => (
-                  <div key={index} className="bg-gray-50 rounded-lg p-3">
+            {colors.length > 0 && !isProcessing && (
+              <div className="space-y-3">
+                {colors.map((color, index) => (
+                  <div key={index} className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg">
                     <div 
-                      className="w-full h-16 rounded mb-2 border border-gray-200"
+                      className="w-12 h-12 rounded-lg border border-gray-300 cursor-pointer"
                       style={{ backgroundColor: color.hex }}
-                    ></div>
-                    <div className="text-sm space-y-1">
-                      <div className="flex items-center justify-between">
-                        <span className="font-mono text-xs">{color.hex}</span>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => copyToClipboard(color.hex)}
-                          className="p-1 h-6 w-6"
-                        >
-                          <Copy className="w-3 h-3" />
-                        </Button>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="font-mono text-xs">{color.rgb}</span>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => copyToClipboard(color.rgb)}
-                          className="p-1 h-6 w-6"
-                        >
-                          <Copy className="w-3 h-3" />
-                        </Button>
-                      </div>
+                      onClick={() => copyToClipboard(color.hex)}
+                    />
+                    <div className="flex-1">
+                      <div className="font-medium">{color.hex}</div>
+                      <div className="text-sm text-gray-600">{color.rgb}</div>
                     </div>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => copyToClipboard(color.hex)}
+                    >
+                      Copy
+                    </Button>
                   </div>
                 ))}
               </div>
             )}
 
-            {!originalImage && !isExtracting && (
+            {!originalImage && !isProcessing && (
               <div className="text-center py-8 text-gray-500">
                 Upload an image to extract colors
               </div>
