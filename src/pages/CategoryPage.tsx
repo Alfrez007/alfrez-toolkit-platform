@@ -24,11 +24,11 @@ const toolsData = {
     { id: 'startup-name', name: 'Startup Name Generator', description: 'Generate creative startup names', icon: Lightbulb }
   ],
   image: [
-    { id: 'image-resizer', name: 'Image Resizer', description: 'Resize images to any dimension', icon: Image, comingSoon: true },
-    { id: 'background-remover', name: 'Background Remover', description: 'Remove backgrounds from images', icon: Scissors, comingSoon: true },
-    { id: 'image-compressor', name: 'Image Compressor', description: 'Compress images without quality loss', icon: Zap, comingSoon: true },
-    { id: 'format-converter', name: 'Convert to WebP/JPEG/PNG', description: 'Convert images to different formats', icon: FileCheck, comingSoon: true },
-    { id: 'color-extractor', name: 'Image Color Extractor', description: 'Extract colors from images', icon: Palette, comingSoon: true }
+    { id: 'image-resizer', name: 'Image Resizer', description: 'Resize images to any dimension', icon: Image },
+    { id: 'background-remover', name: 'Background Remover', description: 'Remove backgrounds from images', icon: Scissors },
+    { id: 'image-compressor', name: 'Image Compressor', description: 'Compress images without quality loss', icon: Zap },
+    { id: 'format-converter', name: 'Convert to WebP/JPEG/PNG', description: 'Convert images to different formats', icon: FileCheck },
+    { id: 'color-extractor', name: 'Image Color Extractor', description: 'Extract colors from images', icon: Palette }
   ],
   document: [
     { id: 'pdf-to-word', name: 'PDF to Word', description: 'Convert PDF files to Word documents', icon: FileText, comingSoon: true },
@@ -191,6 +191,7 @@ const CategoryPage = () => {
             <p className="text-xl text-gray-600 animate-fade-in">
               {categoryId === 'health' ? 'Professional tools to maintain your health and wellness' : 
                categoryId === 'business' ? 'Professional tools to manage your business efficiently' :
+               categoryId === 'image' ? 'Powerful image editing and processing tools' :
                'Powerful tools coming soon to enhance your productivity'}
             </p>
           </div>
@@ -203,7 +204,7 @@ const CategoryPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {tools.map((tool, index) => {
               const IconComponent = tool.icon;
-              const isAvailable = (categoryId === 'health') || (categoryId === 'business');
+              const isAvailable = (categoryId === 'health') || (categoryId === 'business') || (categoryId === 'image');
               const hasComingSoon = 'comingSoon' in tool && tool.comingSoon;
               const linkTo = (isAvailable && !hasComingSoon) ? `/categories/${categoryId}/${tool.id}` : '/coming-soon';
               
@@ -225,6 +226,7 @@ const CategoryPage = () => {
                     
                     <div className={`w-12 h-12 rounded-xl ${categoryId === 'health' ? 'bg-gradient-to-br from-red-500 to-pink-500' : 
                                                                categoryId === 'business' ? 'bg-gradient-to-br from-blue-500 to-indigo-500' :
+                                                               categoryId === 'image' ? 'bg-gradient-to-br from-purple-500 to-pink-500' :
                                                                'bg-gradient-to-br from-gray-400 to-gray-500'} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                       <IconComponent className="w-6 h-6 text-white" />
                     </div>

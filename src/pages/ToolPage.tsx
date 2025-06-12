@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
@@ -17,6 +16,11 @@ import ProfitMarginCalculator from '@/components/tools/ProfitMarginCalculator';
 import BreakEvenCalculator from '@/components/tools/BreakEvenCalculator';
 import BusinessLoanEMI from '@/components/tools/BusinessLoanEMI';
 import StartupNameGenerator from '@/components/tools/StartupNameGenerator';
+import ImageResizer from '@/components/tools/ImageResizer';
+import BackgroundRemover from '@/components/tools/BackgroundRemover';
+import ImageCompressor from '@/components/tools/ImageCompressor';
+import FormatConverter from '@/components/tools/FormatConverter';
+import ColorExtractor from '@/components/tools/ColorExtractor';
 
 const ToolPage = () => {
   const { categoryId, toolId } = useParams();
@@ -57,6 +61,21 @@ const ToolPage = () => {
           return <BusinessLoanEMI />;
         case 'startup-name':
           return <StartupNameGenerator />;
+        default:
+          return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
+      }
+    } else if (categoryId === 'image') {
+      switch (toolId) {
+        case 'image-resizer':
+          return <ImageResizer />;
+        case 'background-remover':
+          return <BackgroundRemover />;
+        case 'image-compressor':
+          return <ImageCompressor />;
+        case 'format-converter':
+          return <FormatConverter />;
+        case 'color-extractor':
+          return <ColorExtractor />;
         default:
           return <PlaceholderTool toolName={toolId?.replace(/-/g, ' ')} />;
       }
