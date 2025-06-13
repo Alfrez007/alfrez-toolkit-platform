@@ -1,6 +1,17 @@
 
 // Main application JavaScript
 
+// Icon SVGs
+const iconSVGs = {
+  heart: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>',
+  briefcase: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v2a2 2 0 002 2h2a2 2 0 002-2V8a2 2 0 00-2-2h-2zm-8 0H8a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V8a2 2 0 00-2-2z"></path></svg>',
+  image: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"></path></svg>',
+  calculator: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>',
+  target: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>',
+  scissors: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>',
+  palette: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 3H5a2 2 0 00-2 2v12a4 4 0 004 4h2a2 2 0 002-2V5a2 2 0 00-2-2z"></path><path d="m2 9 3-3 3 3"></path><path d="m13 18 3-3 3 3"></path></svg>'
+};
+
 // Module data
 const modules = [
   {
@@ -26,30 +37,6 @@ const modules = [
     icon: 'image',
     color: 'from-purple-500 to-violet-500',
     available: true
-  },
-  {
-    id: 'document',
-    name: 'Document Converters',
-    description: 'PDF converters, compressors & document utilities',
-    icon: 'file-text',
-    color: 'from-green-500 to-emerald-500',
-    available: false
-  },
-  {
-    id: 'general',
-    name: 'General Tools',
-    description: 'Age calculator, stopwatch, unit converter & more',
-    icon: 'calculator',
-    color: 'from-orange-500 to-amber-500',
-    available: false
-  },
-  {
-    id: 'developer',
-    name: 'Developer Tools',
-    description: 'JSON formatter, regex tester, UUID generator',
-    icon: 'code',
-    color: 'from-slate-500 to-gray-500',
-    available: false
   }
 ];
 
@@ -57,13 +44,10 @@ const modules = [
 const toolsData = {
   health: [
     { id: 'bmi-calculator', name: 'BMI Calculator', description: 'Calculate your Body Mass Index', icon: 'calculator' },
-    { id: 'calorie-tracker', name: 'Calorie Tracker', description: 'Track your daily calorie intake', icon: 'target' },
-    { id: 'diet-analyser', name: 'Diet Analyser', description: 'Analyze your diet and nutrition', icon: 'heart' },
-    { id: 'biological-age', name: 'Biological Age Calculator', description: 'Calculate your biological age', icon: 'calculator' }
+    { id: 'calorie-tracker', name: 'Calorie Tracker', description: 'Track your daily calorie intake', icon: 'target' }
   ],
   business: [
-    { id: 'break-even', name: 'Break-even Calculator', description: 'Calculate break-even point', icon: 'trending-up' },
-    { id: 'loan-emi', name: 'Business Loan EMI Calculator', description: 'Calculate loan EMI payments', icon: 'dollar-sign' }
+    { id: 'break-even', name: 'Break-even Calculator', description: 'Calculate break-even point', icon: 'calculator' }
   ],
   image: [
     { id: 'background-remover', name: 'Background Remover', description: 'Remove backgrounds from images', icon: 'scissors' },
@@ -74,10 +58,7 @@ const toolsData = {
 const categoryNames = {
   health: 'Health Tools',
   business: 'Business Tools',
-  image: 'Image Tools',
-  document: 'Document Converters',
-  general: 'General Tools',
-  developer: 'Developer Tools'
+  image: 'Image Tools'
 };
 
 // Current state
@@ -87,7 +68,7 @@ let currentTool = null;
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
-  lucide.createIcons();
+  console.log('DOM loaded, initializing app...');
   renderHomePage();
   setupEventListeners();
 });
@@ -133,24 +114,25 @@ function handleSearch(e) {
 
 // Render home page
 function renderHomePage() {
+  console.log('Rendering home page...');
   const grid = document.getElementById('categories-grid');
+  if (!grid) {
+    console.error('Categories grid not found!');
+    return;
+  }
+  
   grid.innerHTML = '';
   
   modules.forEach((module, index) => {
+    console.log(`Creating card for module: ${module.name}`);
     const card = document.createElement('div');
     card.className = 'category-card group relative animate-fade-in';
     card.style.animationDelay = `${index * 100}ms`;
     
     card.innerHTML = `
       <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 relative overflow-hidden cursor-pointer">
-        ${!module.available ? `
-          <div class="absolute top-3 right-3 bg-orange-100 text-orange-600 text-xs font-semibold px-2 py-1 rounded-full">
-            🔒 Soon
-          </div>
-        ` : ''}
-        
         <div class="w-12 h-12 rounded-xl bg-gradient-to-br ${module.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-          <i data-lucide="${module.icon}" class="w-6 h-6 text-white"></i>
+          ${iconSVGs[module.icon] || iconSVGs.calculator}
         </div>
         
         <h3 class="category-name text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
@@ -163,7 +145,7 @@ function renderHomePage() {
         
         <div class="mt-4 flex items-center text-blue-600 text-sm font-medium">
           <span class="group-hover:translate-x-1 transition-transform duration-300">
-            ${module.available ? 'Explore Tools' : 'Coming Soon'}
+            Explore Tools
           </span>
           <div class="ml-2 group-hover:translate-x-1 transition-transform duration-300">
             →
@@ -172,16 +154,11 @@ function renderHomePage() {
       </div>
     `;
     
-    if (module.available) {
-      card.addEventListener('click', () => showCategoryPage(module.id));
-    } else {
-      card.addEventListener('click', () => showComingSoonPage());
-    }
-    
+    card.addEventListener('click', () => showCategoryPage(module.id));
     grid.appendChild(card);
   });
   
-  lucide.createIcons();
+  console.log(`Added ${modules.length} module cards to the grid`);
 }
 
 // Show home page
@@ -199,6 +176,7 @@ function showHomePage() {
 
 // Show category page
 function showCategoryPage(categoryId) {
+  console.log(`Showing category page for: ${categoryId}`);
   currentView = 'category';
   currentCategory = categoryId;
   currentTool = null;
@@ -227,7 +205,7 @@ function showCategoryPage(categoryId) {
     toolCard.innerHTML = `
       <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
         <div class="w-12 h-12 rounded-xl bg-gradient-to-br ${colorClass} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-          <i data-lucide="${tool.icon}" class="w-6 h-6 text-white"></i>
+          ${iconSVGs[tool.icon] || iconSVGs.calculator}
         </div>
         
         <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
@@ -252,12 +230,11 @@ function showCategoryPage(categoryId) {
     toolCard.addEventListener('click', () => showToolPage(categoryId, tool.id));
     toolsGrid.appendChild(toolCard);
   });
-  
-  lucide.createIcons();
 }
 
 // Show tool page
 function showToolPage(categoryId, toolId) {
+  console.log(`Showing tool page for: ${categoryId}/${toolId}`);
   currentView = 'tool';
   currentTool = toolId;
   
@@ -284,13 +261,6 @@ function showToolPage(categoryId, toolId) {
     default:
       toolContent.innerHTML = '<div class="text-center py-8"><h2 class="text-2xl font-bold mb-4">Tool Coming Soon</h2><p class="text-gray-600">This tool is currently under development.</p></div>';
   }
-  
-  lucide.createIcons();
-}
-
-// Show coming soon page
-function showComingSoonPage() {
-  alert('This category is coming soon! Stay tuned for updates.');
 }
 
 // Helper functions
@@ -298,10 +268,7 @@ function getCategoryDescription(categoryId) {
   const descriptions = {
     health: 'Professional tools to maintain your health and wellness',
     business: 'Professional tools to manage your business efficiently',
-    image: 'Powerful image editing and processing tools',
-    document: 'Powerful document conversion tools coming soon',
-    general: 'General productivity tools coming soon',
-    developer: 'Developer utilities coming soon'
+    image: 'Powerful image editing and processing tools'
   };
   return descriptions[categoryId] || 'Powerful tools coming soon';
 }
@@ -310,10 +277,7 @@ function getCategoryColor(categoryId) {
   const colors = {
     health: 'from-red-500 to-pink-500',
     business: 'from-blue-500 to-indigo-500',
-    image: 'from-purple-500 to-pink-500',
-    document: 'from-green-500 to-emerald-500',
-    general: 'from-orange-500 to-amber-500',
-    developer: 'from-slate-500 to-gray-500'
+    image: 'from-purple-500 to-pink-500'
   };
   return colors[categoryId] || 'from-gray-400 to-gray-500';
 }
@@ -324,7 +288,7 @@ function createBMICalculator() {
     <div class="tool-container">
       <div class="text-center mb-8">
         <div class="w-16 h-16 mx-auto rounded-xl bg-gradient-to-br from-red-500 to-pink-500 flex items-center justify-center mb-4">
-          <i data-lucide="calculator" class="w-8 h-8 text-white"></i>
+          ${iconSVGs.calculator}
         </div>
         <h1 class="text-3xl font-bold text-gray-900 mb-2">BMI Calculator</h1>
         <p class="text-gray-600">Calculate your Body Mass Index and understand your weight status</p>
@@ -376,18 +340,6 @@ function createBMICalculator() {
           </div>
         </div>
       </div>
-
-      <div class="card">
-        <div class="flex items-start space-x-3">
-          <i data-lucide="info" class="w-5 h-5 text-blue-500 mt-0.5"></i>
-          <div class="text-sm text-gray-600">
-            <p class="mb-2">
-              <strong>Disclaimer:</strong> BMI is a useful indicator but doesn't account for muscle mass, bone density, and other factors.
-            </p>
-            <p>Consult with a healthcare professional for a comprehensive health assessment.</p>
-          </div>
-        </div>
-      </div>
     </div>
   `;
 }
@@ -397,7 +349,7 @@ function createCalorieTracker() {
     <div class="tool-container">
       <div class="text-center mb-8">
         <div class="w-16 h-16 mx-auto rounded-xl bg-gradient-to-br from-red-500 to-pink-500 flex items-center justify-center mb-4">
-          <i data-lucide="target" class="w-8 h-8 text-white"></i>
+          ${iconSVGs.target}
         </div>
         <h1 class="text-3xl font-bold text-gray-900 mb-2">Calorie Tracker</h1>
         <p class="text-gray-600">Track your daily calorie intake and stay on target</p>
@@ -441,7 +393,6 @@ function createCalorieTracker() {
           <input type="text" id="food-name" placeholder="Food name" class="input">
           <input type="number" id="food-calories" placeholder="Calories" class="input">
           <button onclick="addFood()" class="btn btn-primary">
-            <i data-lucide="plus" class="w-4 h-4"></i>
             Add Food
           </button>
         </div>
@@ -462,7 +413,7 @@ function createBackgroundRemover() {
     <div class="tool-container-wide">
       <div class="text-center mb-8">
         <div class="w-16 h-16 mx-auto rounded-xl bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center mb-4">
-          <i data-lucide="scissors" class="w-8 h-8 text-white"></i>
+          ${iconSVGs.scissors}
         </div>
         <h1 class="text-3xl font-bold text-gray-900 mb-2">Background Remover</h1>
         <p class="text-gray-600">Remove backgrounds from your images with AI technology</p>
@@ -489,7 +440,7 @@ function createBackgroundRemover() {
                   Remove Background
                 </button>
                 <button onclick="resetBackgroundRemover()" class="btn btn-outline">
-                  <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                  Reset
                 </button>
               </div>
             </div>
@@ -509,7 +460,6 @@ function createBackgroundRemover() {
               <h4 class="font-medium mb-2">Background Removed</h4>
               <img id="processed-image" class="max-w-full h-auto border border-gray-200 rounded" style="max-height: 300px;">
               <button onclick="downloadProcessedImage()" class="btn btn-primary w-full mt-4">
-                <i data-lucide="download" class="w-4 h-4"></i>
                 Download Image
               </button>
             </div>
@@ -529,7 +479,7 @@ function createColorExtractor() {
     <div class="tool-container-wide">
       <div class="text-center mb-8">
         <div class="w-16 h-16 mx-auto rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center mb-4">
-          <i data-lucide="palette" class="w-8 h-8 text-white"></i>
+          ${iconSVGs.palette}
         </div>
         <h1 class="text-3xl font-bold text-gray-900 mb-2">Color Extractor</h1>
         <p class="text-gray-600">Extract dominant colors from your images</p>
@@ -556,7 +506,7 @@ function createColorExtractor() {
                   Extract Colors
                 </button>
                 <button onclick="resetColorExtractor()" class="btn btn-outline">
-                  <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                  Reset
                 </button>
               </div>
             </div>
@@ -688,13 +638,11 @@ function renderFoodsList() {
         <div class="text-sm text-gray-600">${food.calories} calories</div>
       </div>
       <button onclick="removeFood(${index})" class="btn btn-outline btn-sm">
-        <i data-lucide="trash-2" class="w-4 h-4"></i>
+        Remove
       </button>
     `;
     container.appendChild(foodElement);
   });
-  
-  lucide.createIcons();
 }
 
 // Background Remover
@@ -875,8 +823,6 @@ function renderColors(colors) {
     `;
     container.appendChild(colorElement);
   });
-  
-  lucide.createIcons();
 }
 
 function copyColor(color) {
@@ -902,3 +848,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
+console.log('App.js loaded successfully');
