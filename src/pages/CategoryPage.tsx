@@ -216,7 +216,7 @@ const CategoryPage = () => {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 animate-fade-in relative">
-                    {hasComingSoon && (
+                    {(hasComingSoon && categoryId !== 'image') && (
                       <div className="absolute top-3 right-3">
                         <Badge variant="secondary" className="bg-orange-100 text-orange-600 text-xs font-semibold">
                           🔒 Soon
